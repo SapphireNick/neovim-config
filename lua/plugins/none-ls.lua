@@ -5,6 +5,7 @@ return {
   },
   config = function()
     local null_ls = require("null-ls")
+
     null_ls.setup({
       sources = {
         null_ls.builtins.formatting.stylua,
@@ -20,21 +21,30 @@ return {
       },
     })
 
-    -- format on save
-    vim.api.nvim_create_autocmd("BufWritePre", {
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
       callback = function()
-        -- Only format if there's an LSP client attached that supports formatting
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        for _, client in ipairs(clients) do
-          if client.server_capabilities.documentFormattingProvider then
-            vim.lsp.buf.format({ async = false })
-            break
-          end
-        end
+        vim.b.disable_autoformat = true
       end,
     })
+
+
+    -- format on save
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --   callback = function()
+    --     -- Only format if there's an LSP client attached that supports formatting
+    --     local clients = vim.lsp.get_clients({ bufnr = 0 })
+    --     for _, client in ipairs(clients) do
+    --       if client.server_capabilities.documentFormattingProvider then
+    --         vim.lsp.buf.format({ async = false })
+    --         break
+    --       end
+    --     end
+    --   end,
+    -- })
   end,
 
   -- manual format
   vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format buffer" }),
+  vim.keymap.set("n", "<leader>fmj", ":%!jq<cr>", { desc = "Format json file" })
 }

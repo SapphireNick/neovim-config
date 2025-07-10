@@ -7,12 +7,19 @@ return {
     "MunifTanjim/nui.nvim",
   },
   lazy = false, -- neo-tree will lazily load itself
-  ---@module "neo-tree"
-  ---@type neotree.Config?
-  opts = {
-    -- fill any relevant options here
-  },
+  opts = {},
   config = function()
-    vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", {})
+    vim.keymap.set("n", "<leader>e", ":Neotree toggle reveal<CR>", {})
+    vim.keymap.set("n", "<leader>nr", ":Neotree reveal<CR>", {})
+    require("neo-tree").setup({
+      window = {
+        position = "left",
+        width = 50, -- Default width
+        mapping_options = {
+          noremap = true,
+          nowait = true,
+        },
+      },
+    })
   end,
 }
