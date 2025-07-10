@@ -107,7 +107,6 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "kotlin",
         callback = function()
-          vim.diagnostic.enable(false)
           vim.bo.shiftwidth = 4
           vim.bo.tabstop = 4
           vim.bo.softtabstop = 4
