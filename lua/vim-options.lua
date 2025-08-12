@@ -6,6 +6,7 @@ vim.opt.shiftwidth = 2
 vim.opt.scrolloff = 15
 
 vim.opt.number = true
+vim.opt.wrap = false
 
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
